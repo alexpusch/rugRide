@@ -1,0 +1,21 @@
+{
+  "name": "rugRide",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "webpack-dev-server -d"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "gamebone": "latest",
+    "lodash": "^3.10.0",
+    "p2": "^0.6.1",
+    "pixi.js": "^3.0.6"
+  },
+  "devDependencies": {
+    "babel-runtime": "^5.6.15"
+  }
+}
