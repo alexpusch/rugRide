@@ -5,14 +5,14 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "webpack-dev-server -d"
+    "start": "webpack-dev-server -d --host 0.0.0.0"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
     "gamebone": "latest",
     "lodash": "^3.10.0",
-    "p2": "^0.6.1",
+    "p2": "^0.7.0",
     "pixi.js": "^3.0.6"
   },
   "devDependencies": {
