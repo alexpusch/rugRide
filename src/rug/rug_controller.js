@@ -21,6 +21,10 @@ export default class RugController{
     })
 
     this.game.camera = camera;
+
+    this.game.reqres.setHandler("rug:position:x", function(){
+      return rug.x;
+    });
   }
 
   _configControls(rug){
