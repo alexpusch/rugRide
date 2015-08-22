@@ -1,6 +1,5 @@
 import {Model} from "gamebone"
 import * as p2 from "p2/build/p2"
-import { mixinP2Physics } from "gamebone"
 
 export default class Rug extends Model{
   initialize(){
@@ -9,14 +8,11 @@ export default class Rug extends Model{
 
     this.velocity = [1000, 0];
   }
-
-  get body(){
-    if(this._body)
-      return this._body
-
+  
+  createBody(){
     let body = new p2.Body({
       mass: 1,
-      type: p2.Body.KINEMATIC
+      // type: p2.Body.KINEMATIC
     });
 
     let shape = new p2.Box({
@@ -25,8 +21,6 @@ export default class Rug extends Model{
     })
 
     body.addShape(shape);
-
-    this._body = body;
 
     return body;
   }
@@ -41,9 +35,6 @@ export default class Rug extends Model{
   }
 
   goTo(y){
-    // let force = y - this.y;
     this.body.position[1] = y
   }  
 }
-
-mixinP2Physics(Rug);
