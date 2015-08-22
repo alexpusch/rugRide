@@ -12,6 +12,7 @@ export default class Rug extends Model{
   createBody(){
     let body = new p2.Body({
       mass: 1,
+      damping: 0
       // type: p2.Body.KINEMATIC
     });
 
@@ -26,15 +27,50 @@ export default class Rug extends Model{
   }
 
   preStep(dt){
-    // this.body.applyForce([1,0]);
+    if(this.movement){
+      let direction = this._getMovmentDirection();
+      let force = 5000 * direction
+      this.body.applyForce([0, force]);
+    }
   }
 
   postStep(dt){
     this.x = this.body.position[0];
     this.y = this.body.position[1];
+
+    this._handleMovementStep();
   }
 
   goTo(y){
-    this.body.position[1] = y
+    this.movement = {
+      start: this.y,
+      target: y
+    }
   }  
+
+  _getMovmentDirection(){
+    let delta = this.movement.target - this.movement.start;
+    let direction = delta/Math.abs(delta);
+
+    return direction;
+  }
+
+  _handleMovementStep(){
+    if(this.movement){
+      if(this._reachedTarget()){
+        this.y = this.movement.target;
+        this._stop();
+      }
+    }
+  }
+
+  _stop(){
+    this.velocity[1] = 0;
+    this.movement = null;
+  }
+
+  _reachedTarget(){
+    let dir = this._getMovmentDirection();
+    return  dir * this.y > dir * this.movement.target
+  }
 }
