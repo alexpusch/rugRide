@@ -2,6 +2,8 @@ import Coin from "./coin_model"
 import CoinView from "./coin_view"
 import { Collection, CollectionView } from "gamebone"
 
+import Spawner from "../components/spawner"
+
 export default class CoinController{
   constructor(options = {}){
     this.game = options.game;
@@ -23,13 +25,16 @@ export default class CoinController{
   }
 
   _spawnCoins(coins){
-    setTimeout(()=>{
-      let curPossition = this.game.reqres.request("rug:position:x");
-      let x = curPossition + this.game.width
-      let y = this.game.height/2 + Math.sin(1/8 * x * Math.PI/180) * 150;
-      let coin = new Coin({x, y});
-      coins.add(coin);
-      this._spawnCoins(coins);
-    }, 200)
+    let spawner = new Spawner({
+      game: this.game,
+      spawnInterval: 103,
+      spawnFunction: (x) => {
+        let y = this.game.height/2 + Math.sin(1/8 * x * Math.PI/180) * 150;
+        let coin = new Coin({x, y});
+        coins.add(coin);
+      }
+    });
+
+    spawner.start();
   }
 }

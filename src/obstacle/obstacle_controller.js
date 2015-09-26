@@ -4,6 +4,8 @@ import ObstacleView from "./obstacle_view"
 import { Collection, CollectionView } from "gamebone"
 import * as _ from "lodash"
 
+import Spawner from "../components/spawner"
+
 export default class ObstacleController{
   constructor(options){
     this.game = options.game;
@@ -24,15 +26,20 @@ export default class ObstacleController{
   }
 
   _spawnObstacles(obstacles){
-    setTimeout(()=>{
-      let x = this.game.reqres.request("rug:position:x") + this.game.width
+    let spawner = new Spawner({
+      game: this.game,
+      spawnInterval: 1000,
+      spawnFunction: (x) => {
+        let y = _.random(0, this.game.height);
+        let height = _.random(this.game.height/5, this.game.height/3);
+        let width = 40;
+        let obstacle = new Obstacle({x: x + width,y, width, height})
+        obstacles.add(obstacle);
+    
+        this.world.add(obstacle);
+      }
+    });
 
-      let y = _.random(0, this.game.height);
-      let height = _.random(this.game.height/5, this.game.height/3);
-      let width = 40;
-      let obstacle = new Obstacle({x,y, width, height})
-      obstacles.add(obstacle);
-      this._spawnObstacles(obstacles);
-    }, 1000)
+    spawner.start();
   }
 }
