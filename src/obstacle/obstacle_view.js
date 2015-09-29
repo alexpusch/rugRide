@@ -7,11 +7,10 @@ export default class ObstacleView extends View{
   }
   
   render(){
-    let rugGraphics = new PIXI.Graphics()
-    rugGraphics.lineStyle(0);
-    rugGraphics.beginFill(0xffff00, 1);
-    rugGraphics.drawRect(-this.model.width/2, -this.model.height/2, this.model.width, this.model.height);
-    rugGraphics.endFill();
+    var rugGraphics = PIXI.Sprite.fromImage('assets/images/rock.png');
+    rugGraphics.scale.x = this.model.width / rugGraphics.width;
+    rugGraphics.scale.y = this.model.height / rugGraphics.height;
+    rugGraphics.anchor = new PIXI.Point(0.5,0.5);
 
     this.container.addChild(rugGraphics);
   }

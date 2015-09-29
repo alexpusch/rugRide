@@ -1,3 +1,5 @@
+import * as PIXI from "pixi.js/bin/pixi.js"
+
 import { Game, World } from "gamebone"
 
 import RugController from "./rug/rug_controller"
@@ -8,27 +10,39 @@ import Rug from "./rug/rug_model"
 import Coin from "./coins/coin_model"
 
 export default function rugRide(options = {}) {
-  let game = new Game(options);
-  let world = new World({gravity: [0,0]});
+  PIXI.loader.add([
+    "assets/images/rug.png",
+    "assets/images/rock.png",
+  ]);
+  PIXI.loader.once("complete", function(){
+    let game = new Game(options);
+    let filter = new PIXI.filters.PixelateFilter();
+    filter.size = new PIXI.Point(6, 6);
+    game.setFilters([filter]);
 
-  world.onCollision(Rug, Coin, function(rug, coin){
-    coin.picked();
-  })
+    let world = new World({gravity: [0,0]});
 
-  let rugController = new RugController({ game, world });
-  let obstacleController = new ObstacleController({ game, world });
-  let coinController = new CoinController({game, world});
+    world.onCollision(Rug, Coin, function(rug, coin){
+      coin.picked();
+    })
 
-  rugController.start();
-  obstacleController.start();
-  coinController.start();
+    let then = performance.now();
 
-  let then = performance.now();
+    game.frame = (now) => {
+      let dt = now - then;
+      then = now;
+      world.step(1/60, dt / 1000);
+    }
+    game.start();
+    
+    let rugController = new RugController({ game, world });
+    let obstacleController = new ObstacleController({ game, world });
+    let coinController = new CoinController({game, world});
 
-  game.frame = (now) => {
-    let dt = now - then;
-    then = now;
-    world.step(1/60, dt / 1000);
-  }
-  game.start();
+    rugController.start();
+    obstacleController.start();
+    coinController.start();
+  });
+
+  PIXI.loader.load();
 }
