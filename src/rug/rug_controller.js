@@ -15,16 +15,29 @@ export default class RugController{
     this.game.show("main", rugView);
     this._configControls(rug);
 
+    let camera = this._setupCamera(rug);
+    camera.start(this.game.layout.main);
+   
+    this.game.reqres.setHandler("rug:position:x", function(){
+      return rug.x;
+    });
+  }
+
+  _setupCamera(rug){
     let camera = new FollowCamera({
       model: rug,
       targetX: 100
     })
 
-    this.game.camera = camera;
-
-    this.game.reqres.setHandler("rug:position:x", function(){
-      return rug.x;
+    this.game.reqres.setHandler("rug:camera:position", () => {
+      return {
+        x: -camera.tx,
+        y: -camera.ty,
+        z: camera.zoom
+      }
     });
+
+    return camera;
   }
 
   _configControls(rug){

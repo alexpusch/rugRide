@@ -9,7 +9,7 @@ export default class Spawner{
 
   start(){
     this.game.on("frame", () => {
-      let x = this.game.reqres.request("camera:position").x;
+      let x = this.game.reqres.request("rug:camera:position").x;
 
       if(x > this.nextSpawnLocation){
         x = this.nextSpawnLocation;
