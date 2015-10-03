@@ -17,7 +17,7 @@ export default class CoinController{
       childViewType: CoinView,
       collection: coins
     });
-    this.game.show(coinsView);
+    this.game.show("main", coinsView);
 
     this.world.addCollection(coins);
 

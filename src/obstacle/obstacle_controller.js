@@ -22,7 +22,7 @@ export default class ObstacleController{
       collection: obstacles
     });
 
-    this.game.show(this.obstaclesView);
+    this.game.show("main", this.obstaclesView);
   }
 
   _spawnObstacles(obstacles){

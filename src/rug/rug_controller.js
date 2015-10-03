@@ -12,7 +12,7 @@ export default class RugController{
     let rug = new Rug({x: 0, y: 0});
     let rugView = new RugView({model: rug});
     this.world.add(rug);
-    this.game.show(rugView);
+    this.game.show("main", rugView);
     this._configControls(rug);
 
     let camera = new FollowCamera({
