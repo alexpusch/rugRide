@@ -1,6 +1,6 @@
 import Rug from "./rug_model"
 import RugView from "./rug_view"
-import FollowCamera from "./rug_camera"
+import FollowCamera from "../components/follow_camera"
 
 export default class RugController{
   constructor(options = {}){
