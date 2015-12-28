@@ -1,6 +1,7 @@
 export default class Spawner{
   constructor(options){
     this.game = options.game;
+    this.zIndex = options.zIndex || 1;
     this.spawnInterval = options.spawnInterval;
     this.spawnFunction = options.spawnFunction;
 
