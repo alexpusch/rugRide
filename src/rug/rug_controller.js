@@ -37,6 +37,7 @@ export default class RugController{
       }
     });
 
+    this.game.reqres.setHandler("rug:camera", () => { return camera; })
     return camera;
   }
 
