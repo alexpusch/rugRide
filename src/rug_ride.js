@@ -2,6 +2,8 @@ import * as PIXI from "pixi.js/bin/pixi.js"
 
 import { Game, World } from "gamebone"
 
+import StartScreenController from "./start_screen/start_screen_controller"
+
 import RugController from "./rug/rug_controller"
 import ObstacleController from "./obstacle/obstacle_controller"
 import CoinController from "./coins/coins_controller"
@@ -35,13 +37,24 @@ export default function rugRide(options = {}) {
     }
     game.start();
     
-    let rugController = new RugController({ game, world });
-    let obstacleController = new ObstacleController({ game, world });
-    let coinController = new CoinController({game, world});
+    let startScreenController = new StartScreenController({game});
+    
+    game.addScreens({
+      start: startScreenController,
+      game: {
+        start: () => {
+          let rugController = new RugController({ game, world });
+          let obstacleController = new ObstacleController({ game, world });
+          let coinController = new CoinController({game, world});
 
-    rugController.start();
-    obstacleController.start();
-    coinController.start();
+          rugController.start();
+          obstacleController.start();
+          coinController.start();
+        }
+      }
+    });
+
+    game.gotoScreen("start");
   });
 
   PIXI.loader.load();
