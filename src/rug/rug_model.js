@@ -3,8 +3,8 @@ import * as p2 from "p2/build/p2"
 
 export default class Rug extends Model{
   initialize(){
-    this.width = 100;
-    this.height = 30;
+    this.width = 108;
+    this.height = 58;
 
     this.velocity = [1000, 0];
   }
@@ -12,8 +12,7 @@ export default class Rug extends Model{
   createBody(){
     let body = new p2.Body({
       mass: 1,
-      damping: 0
-      // type: p2.Body.KINEMATIC
+      damping: 0,
     });
 
     let shape = new p2.Box({
@@ -50,6 +49,10 @@ export default class Rug extends Model{
 
   _getMovmentDirection(){
     let delta = this.movement.target - this.movement.start;
+
+    if(delta == 0)
+      return 0;
+
     let direction = delta/Math.abs(delta);
 
     return direction;
