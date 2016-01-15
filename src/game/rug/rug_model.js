@@ -2,13 +2,14 @@ import {Model} from "gamebone"
 import * as p2 from "p2/build/p2"
 
 export default class Rug extends Model{
-  initialize(){
+  constructor(options){
+    super(options);
     this.width = 108;
     this.height = 58;
 
     this.velocity = [1000, 0];
   }
-  
+
   createBody(){
     let body = new p2.Body({
       mass: 1,
@@ -45,7 +46,7 @@ export default class Rug extends Model{
       start: this.y,
       target: y
     }
-  }  
+  }
 
   _getMovmentDirection(){
     let delta = this.movement.target - this.movement.start;

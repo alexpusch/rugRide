@@ -2,10 +2,11 @@ import { View } from "gamebone"
 import * as PIXI from "pixi.js/bin/pixi.js"
 
 export default class ObstacleView extends View{
-  initialize(){
-    this.model.observe(["x", "y"] , this.update.bind(this));
+  constructor(options){
+    super(options);
+    this.observeOn(this.model, "x y", this.update.bind(this));
   }
-  
+
   render(){
     var rugGraphics = PIXI.Sprite.fromImage('assets/images/rock.png');
     rugGraphics.scale.x = this.model.width / rugGraphics.width;
@@ -15,8 +16,8 @@ export default class ObstacleView extends View{
     this.container.addChild(rugGraphics);
   }
 
-  update(){ 
+  update(){
     this.container.position.x = this.model.x
     this.container.position.y = this.model.y
   }
-} 
+}

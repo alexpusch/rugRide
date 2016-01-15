@@ -1,13 +1,14 @@
 import Obstacle from "./obstacle_model"
 import ObstacleView from "./obstacle_view"
 
-import { Collection, CollectionView } from "gamebone"
+import { Controller, Collection, CollectionView } from "gamebone"
 import * as _ from "lodash"
 
-import Spawner from "../components/spawner"
+import Spawner from "../../components/spawner"
 
-export default class ObstacleController{
+export default class ObstacleController extends Controller{
   constructor(options){
+    super();
     this.game = options.game;
     this.world = options.world;
   }
@@ -17,12 +18,22 @@ export default class ObstacleController{
 
     this._spawnObstacles(obstacles);
 
-    this.obstaclesView = new CollectionView({
+    this.obstaclesView = this._getView(obstacles);
+
+    this.game.show("main", this.obstaclesView);
+  }
+
+  _getView(obstacles){
+    let view = new CollectionView({
       childViewType: ObstacleView,
       collection: obstacles
     });
 
-    this.game.show("main", this.obstaclesView);
+    this.on("destroy", () => {
+      view.destroy();
+    });
+
+    return view;
   }
 
   _spawnObstacles(obstacles){
@@ -34,9 +45,9 @@ export default class ObstacleController{
         let height = _.random(this.game.height/5, this.game.height/3);
         let width = 40;
         let obstacle = new Obstacle({x: x + width,y, width, height})
-        obstacles.add(obstacle);
-    
         this.world.add(obstacle);
+        obstacles.add(obstacle);
+
       }
     });
 

@@ -1,27 +1,38 @@
 import Coin from "./coin_model"
 import CoinView from "./coin_view"
-import { Collection, CollectionView } from "gamebone"
+import { Controller, Collection, CollectionView } from "gamebone"
 
-import Spawner from "../components/spawner"
+import Spawner from "../../components/spawner"
 
-export default class CoinController{
+export default class CoinController extends Controller{
   constructor(options = {}){
+    super();
     this.game = options.game;
     this.world = options.world;
   }
 
   start(){
     let coins = new Collection();
+    this.world.addCollection(coins);
 
-    let coinsView = new CollectionView({
+    let coinsView = this.coinsView = this._getView(coins);
+
+    this.game.show("main", coinsView);
+
+    this._spawnCoins(coins);
+  }
+
+  _getView(coins){
+    let view = new CollectionView({
       childViewType: CoinView,
       collection: coins
     });
-    this.game.show("main", coinsView);
 
-    this.world.addCollection(coins);
+    this.on("destroy", () => {
+      view.destroy();
+    });
 
-    this._spawnCoins(coins);
+    return view;
   }
 
   _spawnCoins(coins){

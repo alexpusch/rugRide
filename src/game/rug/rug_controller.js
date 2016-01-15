@@ -1,26 +1,38 @@
+import { Controller } from "gamebone";
+
 import Rug from "./rug_model"
 import RugView from "./rug_view"
-import FollowCamera from "../components/follow_camera"
+import FollowCamera from "../../components/follow_camera"
 
-export default class RugController{
+
+export default class RugController extends Controller{
   constructor(options = {}){
+    super();
     this.game = options.game;
     this.world = options.world;
   }
 
   start(){
     let rug = new Rug({x: 0, y: 0});
-    let rugView = new RugView({model: rug});
     this.world.add(rug);
+
+    let rugView = this.rugView = new RugView({model: rug});
     this.game.show("main", rugView);
     this._configControls(rug);
 
-    let camera = this._setupCamera(rug);
+    let camera = this.camera = this._setupCamera(rug);
     camera.start(this.game.layout.main);
-   
+
     this.game.reqres.setHandler("rug:position:x", function(){
       return rug.x;
     });
+  }
+
+  destroy(){
+    super.destroy();
+
+    this.rugView.destroy();
+    this.camera.destroy();
   }
 
   _setupCamera(rug){
