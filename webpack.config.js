@@ -1,15 +1,18 @@
 module.exports = {
-  entry: "./src/index.js",
+  entry: ["babel-polyfill", "./src/index.js"],
   output: {
     path: "./build",
     publicPath: "",
     filename: "bundle.js"
   },
   module : {
-    loaders: [ { 
+    loaders: [ {
         test   : /.js$/,
-        loader : 'babel-loader?optional[]=runtime',
-        exclude: /node_modules/
+        loader : 'babel-loader',
+        exclude: /node_modules/,
+        query  : {
+          presets: ['es2015']
+        }
       }
     ]
   }
