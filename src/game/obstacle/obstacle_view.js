@@ -1,23 +1,23 @@
-import { View } from "gamebone"
-import * as PIXI from "pixi.js/bin/pixi.js"
+import { View } from 'gamebone';
+import * as PIXI from 'pixi.js/bin/pixi.js';
 
 export default class ObstacleView extends View{
-  constructor(options){
+  constructor(options) {
     super(options);
-    this.observeOn(this.model, "x y", this.update.bind(this));
+    this.observeOn(this.model, 'x y', this.update.bind(this));
   }
 
-  render(){
+  render() {
     var rugGraphics = PIXI.Sprite.fromImage('assets/images/rock.png');
     rugGraphics.scale.x = this.model.width / rugGraphics.width;
     rugGraphics.scale.y = this.model.height / rugGraphics.height;
-    rugGraphics.anchor = new PIXI.Point(0.5,0.5);
+    rugGraphics.anchor = new PIXI.Point(0.5, 0.5);
 
     this.container.addChild(rugGraphics);
   }
 
-  update(){
-    this.container.position.x = this.model.x
-    this.container.position.y = this.model.y
+  update() {
+    this.container.position.x = this.model.x;
+    this.container.position.y = this.model.y;
   }
 }

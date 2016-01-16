@@ -1,26 +1,26 @@
-import { Controller } from "gamebone";
-import StartScreenView from "./start_screen_view"
+import { Controller } from 'gamebone';
+import StartScreenView from './start_screen_view';
 
 export default class StartScreenController extends Controller{
-  constructor(options){
+  constructor(options) {
     super();
     this.game = options.game;
   }
 
-  start(){
+  start() {
     let startScreenView = this.startScreenView = this._getView();
 
-    this.listenTo(startScreenView, "start:click", () => {
-      this.game.gotoScreen("game");
+    this.listenTo(startScreenView, 'start:click', () => {
+      this.game.gotoScreen('game');
     });
 
-    this.game.show("main", startScreenView);
+    this.game.show('main', startScreenView);
   }
 
-  _getView(){
+  _getView() {
     let view = new StartScreenView();
 
-    this.on("destroy", () => {
+    this.on('destroy', () => {
       setTimeout(view.destroy.bind(view), 0);
     });
 

@@ -1,5 +1,5 @@
 export default class Spawner{
-  constructor(options){
+  constructor(options) {
     this.game = options.game;
     this.spawnInterval = options.spawnInterval;
     this.spawnFunction = options.spawnFunction;
@@ -7,11 +7,11 @@ export default class Spawner{
     this.nextSpawnLocation = this.game.width;
   }
 
-  start(){
-    this.game.on("frame", () => {
-      let x = this.game.reqres.request("rug:camera:position").x;
+  start() {
+    this.game.on('frame', () => {
+      let x = this.game.reqres.request('rug:camera:position').x;
 
-      if(x > this.nextSpawnLocation){
+      if (x > this.nextSpawnLocation) {
         x = this.nextSpawnLocation;
         this.nextSpawnLocation += this.spawnInterval;
 
