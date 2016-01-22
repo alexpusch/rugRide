@@ -11,6 +11,7 @@ export default class ObstacleController extends Controller{
     super();
     this.game = options.game;
     this.world = options.world;
+    this.container = options.container;
   }
 
   start() {
@@ -20,7 +21,7 @@ export default class ObstacleController extends Controller{
 
     this.obstaclesView = this._getView(obstacles);
 
-    this.game.show('main', this.obstaclesView);
+    this.container.add(this.obstaclesView);
   }
 
   _getView(obstacles) {

@@ -9,6 +9,7 @@ export default class CoinController extends Controller{
     super();
     this.game = options.game;
     this.world = options.world;
+    this.container = options.container;
   }
 
   start() {
@@ -17,7 +18,7 @@ export default class CoinController extends Controller{
 
     let coinsView = this.coinsView = this._getView(coins);
 
-    this.game.show('main', coinsView);
+    this.container.add(coinsView);
 
     this._spawnCoins(coins);
   }
