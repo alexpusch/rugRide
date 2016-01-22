@@ -10,7 +10,7 @@ export default class GameoverScreenController extends Controller{
   start() {
     let gameOverScreenView = this.gameOverScreenView = this._getView();
 
-    this.game.show('main', gameOverScreenView);
+    this.game.show('ui', gameOverScreenView);
   }
 
   _getView() {

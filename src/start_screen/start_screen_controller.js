@@ -14,7 +14,7 @@ export default class StartScreenController extends Controller{
       this.game.gotoScreen('game');
     });
 
-    this.game.show('main', startScreenView);
+    this.game.show('ui', startScreenView);
   }
 
   _getView() {
