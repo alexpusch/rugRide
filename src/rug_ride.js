@@ -10,6 +10,12 @@ export default function rugRide(options = {}) {
   PIXI.loader.add([
     'assets/images/rug.png',
     'assets/images/rock.png',
+    'assets/images/mountain1.png',
+    'assets/images/mountain2.png',
+    'assets/images/mountain3.png',
+    'assets/images/mountain4.png',
+    'assets/images/lava.png',
+    'assets/images/moon.png'
   ]);
 
   PIXI.loader.once('complete', function() {
