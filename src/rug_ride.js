@@ -20,9 +20,6 @@ export default function rugRide(options = {}) {
 
   PIXI.loader.once('complete', function() {
     let game = new Game(options);
-    let filter = new PIXI.filters.PixelateFilter();
-    filter.size = new PIXI.Point(6, 6);
-    game.setFilters([filter]);
 
     game.addScreens({
       start: new StartScreenController({ game }),
