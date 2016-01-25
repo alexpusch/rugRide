@@ -1,4 +1,5 @@
-import { Controller, World } from 'gamebone';
+import { Controller, World, ContainerView } from 'gamebone';
+
 
 import RugController from './rug/rug_controller';
 import ObstacleController from './obstacle/obstacle_controller';
@@ -10,7 +11,6 @@ import FollowCamera from '../components/follow_camera';
 import Rug from './rug/rug_model';
 import Coin from './coins/coin_model';
 import Obstacle from './obstacle/obstacle_model';
-
 module.exports = class GameController extends Controller{
   constructor(options) {
     super();
@@ -21,8 +21,8 @@ module.exports = class GameController extends Controller{
     let world = this.world = new World({ gravity: [0, 0] });
     let game = this.game;
 
-    let container = new PixelatedContainer({game});
-    let backgroundContainer = new PixelatedContainer({game});
+    let container = this.container = new ContainerView();
+    let backgroundContainer = this.backgroundContainer = new ContainerView();
     game.show('main', container);
     game.show('background', backgroundContainer);
 
@@ -34,9 +34,8 @@ module.exports = class GameController extends Controller{
     this.obstacleController.start();
     this.coinController.start();
 
-
     this.camera = this._setupCamera(this.rugController.getRug());
-    this.camera.start(container.getBackstage());
+    this.camera.start(container);
 
     this.backgroundController = new BackgroundController({
       game,
@@ -65,12 +64,14 @@ module.exports = class GameController extends Controller{
 
   destroy() {
     super.destroy();
+    this.camera.destroy();
 
     this.rugController.destroy();
     this.obstacleController.destroy();
     this.coinController.destroy();
     this.backgroundController.destroy();
-    this.camera.destroy();
+    this.container.destroy();
+    this.backgroundContainer.destroy();
   }
 
   _setupCamera(rug) {
