@@ -37,7 +37,7 @@ export default class BackgroundController extends Controller{
   _createLavaView(){
     let camera = this._createParalex(1);
     let view = new LavaView({camera});
-    camera.start(view.container);
+    camera.start(view);
 
     return view;
   }
@@ -47,7 +47,7 @@ export default class BackgroundController extends Controller{
     for(let mountain of mountains){
       let parallexCamera = this._createParalex(mountain.parallex);
       let view = new MountainView({model: mountain, camera: parallexCamera});
-      parallexCamera.start(view.container);
+      parallexCamera.start(view);
       views.push(view);
     }
 
