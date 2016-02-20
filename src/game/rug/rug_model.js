@@ -4,8 +4,8 @@ import * as p2 from 'p2/build/p2';
 export default class Rug extends Model{
   constructor(options) {
     super(options);
-    this.width = 108;
-    this.height = 58;
+    this.width = 216;
+    this.height = 116;
 
     this.velocity = [1000, 0];
   }

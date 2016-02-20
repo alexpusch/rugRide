@@ -44,7 +44,7 @@ export default class ObstacleController extends Controller{
       spawnFunction: (x) => {
         let y = _.random(0, this.game.height);
         let height = _.random(this.game.height / 5, this.game.height / 3);
-        let width = 40;
+        let width = _.random(this.game.width / 10, this.game.width / 5);
         let obstacle = new Obstacle({ x: x + width, y, width, height });
         this.world.add(obstacle);
         obstacles.add(obstacle);

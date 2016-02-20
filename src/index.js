@@ -1,9 +1,13 @@
-import rugRide from "./rug_ride"
+import rugRide from './rug_ride';
 
 window.onload = () => {
-  rugRide({
-    domContainer: "#game-container",
-    width: 800,
-    height: 600
-  });
-}
+  let width = window.innerWidth, height = window.innerHeight;
+
+  setTimeout(() => {
+    rugRide({
+      domContainer: '#game-container',
+      width, height,
+    });
+  }, 1000
+  );
+};
